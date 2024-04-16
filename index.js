@@ -25,11 +25,20 @@ document.addEventListener('DOMContentLoaded', function() {
         newForm.querySelector('.deleteForm').addEventListener('click', () => {
             formsCount--;
             newForm.remove()
-        })
+        });
+
+        const wishesTextArea = newForm.querySelector('.wishes');
+
+        wishesTextArea.addEventListener('input', function() {
+            const textWishes = newForm.querySelector('.text-wishes');
+            textWishes.innerText = wishesTextArea.value;
+        });
+
         const forms = document.querySelectorAll('form');
         forms[formsCount-1].after(newForm);
         formsCount++;
     });
+
     const modal = document.querySelector('.modal');
     const modalContent = document.querySelector('.modal-content');
     const closeButton = document.querySelector('.close-button');
@@ -79,6 +88,9 @@ document.addEventListener('DOMContentLoaded', function() {
         modalContent.removeChild(modalContent.lastChild);
         modal.classList.remove('active');
     });
+
+
+
 });
 
 

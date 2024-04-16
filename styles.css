@@ -98,6 +98,10 @@ table {
     border-collapse: collapse;
 }
 
+form[data-template] {
+    display: none;
+}
+
 table, th, td {
     border: 1px solid black;
 }

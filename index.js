@@ -13,31 +13,34 @@ function pluralizeDrinks(count)
     return 'Напитка';
 }
 
+
+let drinkCount = 0;
+let formsCount = 0;
+function addBeverageForm() {
+    drinkCount++;
+    const newForm = document.querySelector('form[data-template]').cloneNode(true);
+    newForm.removeAttribute('data-template');
+    newForm.querySelector('.beverage-count').textContent = `Напиток №${drinkCount}`;
+    newForm.querySelector('.deleteForm').addEventListener('click', () => {
+        formsCount--;
+        newForm.remove()
+    });
+
+    const wishesTextArea = newForm.querySelector('.wishes');
+
+    wishesTextArea.addEventListener('input', function() {
+        const textWishes = newForm.querySelector('.text-wishes');
+        textWishes.innerText = wishesTextArea.value;
+    });
+
+    const forms = document.querySelectorAll('form');
+    forms[formsCount].after(newForm);
+    formsCount++;
+}
 document.addEventListener('DOMContentLoaded', function() {
     const addButton = document.querySelector('.add-button');
-    let drinkCount = 1;
-    let formsCount = 1;
-
-    addButton.addEventListener('click', function() {
-        drinkCount++;
-        const newForm = document.querySelector('form').cloneNode(true);
-        newForm.querySelector('.beverage-count').textContent = `Напиток №${drinkCount}`;
-        newForm.querySelector('.deleteForm').addEventListener('click', () => {
-            formsCount--;
-            newForm.remove()
-        });
-
-        const wishesTextArea = newForm.querySelector('.wishes');
-
-        wishesTextArea.addEventListener('input', function() {
-            const textWishes = newForm.querySelector('.text-wishes');
-            textWishes.innerText = wishesTextArea.value;
-        });
-
-        const forms = document.querySelectorAll('form');
-        forms[formsCount-1].after(newForm);
-        formsCount++;
-    });
+    addButton.addEventListener('click', () => addBeverageForm());
+    addBeverageForm();
 
     const modal = document.querySelector('.modal');
     const modalContent = document.querySelector('.modal-content');
@@ -48,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const countP = document.createElement('p');
         countP.textContent = `Вы заказали ${formsCount} ${pluralizeDrinks(formsCount)}`;
         modalContent.appendChild(countP);
-        const fieldsets = document.querySelectorAll('.beverage');
+        const fieldsets = document.querySelectorAll('form:not([data-template]) .beverage');
         const table = document.createElement('table');
         const head = document.createElement('tr');
         const drink = document.createElement('th');
@@ -95,9 +98,6 @@ document.addEventListener('DOMContentLoaded', function() {
         modalContent.removeChild(modalContent.lastChild);
         modal.classList.remove('active');
     });
-
-
-
 });
 
 

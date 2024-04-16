@@ -15,14 +15,20 @@ function pluralizeDrinks(count)
 
 document.addEventListener('DOMContentLoaded', function() {
     const addButton = document.querySelector('.add-button');
-    const form = document.querySelector('form');
     let drinkCount = 1;
+    let formsCount = 1;
 
     addButton.addEventListener('click', function() {
         drinkCount++;
-        const newFieldset = document.querySelector('.beverage').cloneNode(true);
-        newFieldset.querySelector('.beverage-count').textContent = `Напиток №${drinkCount}`;
-        form.insertBefore(newFieldset, addButton.parentNode);
+        const newForm = document.querySelector('form').cloneNode(true);
+        newForm.querySelector('.beverage-count').textContent = `Напиток №${drinkCount}`;
+        newForm.querySelector('.deleteForm').addEventListener('click', () => {
+            formsCount--;
+            newForm.remove()
+        })
+        const forms = document.querySelectorAll('form');
+        forms[formsCount-1].after(newForm);
+        formsCount++;
     });
     const modal = document.querySelector('.modal');
     const modalContent = document.querySelector('.modal-content');

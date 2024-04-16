@@ -30,7 +30,13 @@ function addBeverageForm() {
 
     wishesTextArea.addEventListener('input', function() {
         const textWishes = newForm.querySelector('.text-wishes');
-        textWishes.innerText = wishesTextArea.value;
+        const replacements = ['срочно', 'побыстрее', 'быстрее', 'скорее','поскорее','очень нужно'];
+        let formattedString = wishesTextArea.value;
+        replacements.forEach(replacement => {
+            formattedString = formattedString.replace(replacement, `<b>${replacement}</b>`);
+        })
+
+        textWishes.querySelector('span').innerHTML = formattedString;
     });
 
     const forms = document.querySelectorAll('form');

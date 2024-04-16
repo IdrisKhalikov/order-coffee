@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const misc = document.createElement('th');
         misc.textContent = 'Дополнительно';
         head.appendChild(misc);
+        const wishes = document.createElement('th');
+        wishes.textContent = 'Пожелания';
+        head.appendChild(wishes);
         table.appendChild(head);
         fieldsets.forEach(fieldset => {
             const selectedBeverage = fieldset.querySelector('select').value;
@@ -67,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedOptions = Array.from(fieldset.querySelectorAll('input[name="options"]:checked'))
                 .map(option => option.nextElementSibling.innerText)
                 .join(', ');
+            const selectedWishes = fieldset.querySelector('.wishes').value;
             const body = document.createElement('tr');
             const drink1 = document.createElement('td');
             drink1.textContent = selectedBeverage;
@@ -77,6 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const misc1 = document.createElement('td');
             misc1.textContent = selectedOptions;
             body.appendChild(misc1);
+            const wishes1 = document.createElement('td');
+            wishes1.textContent = selectedWishes;
+            body.appendChild(wishes1);
             table.appendChild(body);
         })
         modalContent.appendChild(table);
